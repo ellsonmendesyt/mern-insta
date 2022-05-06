@@ -8,7 +8,8 @@ const env = require('dotenv').config();
 // models
 // require('./models/user.js');
 // mongoose.model("User");
-const User = require('./models/user.js');
+
+const router = require('./routes/auth.js');
 
 
 
@@ -23,7 +24,7 @@ const User = require('./models/user.js');
 
 const app = express();
 app.use(express.json());
-
+app.use(router)
 
 
 

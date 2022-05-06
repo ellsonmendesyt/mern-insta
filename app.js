@@ -2,7 +2,23 @@ const express = require('express');
 const { default: mongoose } = require('mongoose');
 const log=console.log;
 const env = require('dotenv').config();
-const conectar= require('./bd.js');
+
+
+
+// models
+// require('./models/user.js');
+// mongoose.model("User");
+const User = require('./models/user.js');
+
+
+
+
+
+
+
+
+
+
 
 
 const app = express();

@@ -5,10 +5,12 @@ const {User}= require('../models/user.js');
 const jwt = require('jsonwebtoken');
 
 const secretKey= process.env.SECRET_KEY;
+const login = require('../middlewares/login.js');
 
 
-
-
+router.get('/protected',login,(req,res)=>{
+ res.send('Hello from protected')
+})
 
 
 router.post('/signup',(req,res)=>{
@@ -33,11 +35,8 @@ router.post('/signup',(req,res)=>{
     
             // salvar o usuario
             user.save()
-            .then((user)=>{
-                
+            .then((user)=>{  
                 res.json({usuariosalvo:user});
-                
-
             }).catch((error)=>console.log(error.message));
         });
 

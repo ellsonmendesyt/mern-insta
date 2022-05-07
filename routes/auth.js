@@ -2,7 +2,9 @@ const express= require('express')
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const {User}= require('../models/user.js');
+const jwt = require('jsonwebtoken');
 
+const secretKey= process.env.SECRET_KEY;
 
 
 
@@ -32,7 +34,10 @@ router.post('/signup',(req,res)=>{
             // salvar o usuario
             user.save()
             .then((user)=>{
+                
                 res.json({usuariosalvo:user});
+                
+
             }).catch((error)=>console.log(error.message));
         });
 
@@ -59,7 +64,9 @@ router.post('/signin', (req,res)=>{
         .then(doMatch=>{
             if(doMatch){
                 // user signed in
-                res.json({message:'You are signed in'});
+                // ENVIAR O JSONWEBTOKEN PARA O USUARIO
+                const token=jwt.sign({_id:savedUser._id},secretKey);
+                res.status(200).json({token});
             }else{
                 return res.status(422).json({error:'Invalid email or password'});
             }
